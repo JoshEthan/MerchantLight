@@ -25,7 +25,7 @@ pipeline {
                 bat "BuildWithoutCooking.bat \"${ue4Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
             }
             post {
-                sucess { 
+                success { 
                     echo "Build Sucessful."
                 }
                 failure { 
@@ -39,7 +39,7 @@ pipeline {
                 bat "TestRunnerAndCodeCoverage.bat \"${ue4Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\" \"${testSuiteToRun}\" \"${testReportFolder}\" \"${testsLogName}\" \"${codeCoverageReportName}\""//runs the tests
             }
             post {
-                sucess { 
+                success { 
                     echo "Test Sucessful."
                 }
                 failure { 
