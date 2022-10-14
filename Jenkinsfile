@@ -4,7 +4,7 @@ pipeline {
             label 'master'
             customWorkspace "D:/Projects"
         }
-    }
+    } // End of Agent
     
     environment {
         ue4Path = "C:\\Unreal Engine\\UE_5.0"
@@ -15,7 +15,7 @@ pipeline {
         testsLogName = "RunTests.log"
         pathToTestsLog = "${env.WORKSPACE}" + "\\Saved\\Logs\\" + "${testsLogName}"
         codeCoverageReportName="CodeCoverageReport.xml"
-    }
+    } // End of Env
     
     
     stages {
@@ -24,16 +24,33 @@ pipeline {
                 echo "Building..."
                 bat "BuildWithoutCooking.bat \"${ue4Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
             }
-        }
+            post {
+                sucess { 
+                    echo "Build Sucessful."
+                }
+                failure { 
+                    echo "Build Failed."
+                }
+            }
+        } // End of Build Stage
         stage('Test') { 
             steps {
-                echo "Testing..." 
+                echo "Testing..."
+                bat "TestRunnerAndCodeCoverage.bat \"${ue4Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\" \"${testSuiteToRun}\" \"${testReportFolder}\" \"${testsLogName}\" \"${codeCoverageReportName}\""//runs the tests
             }
-        }
+            post {
+                sucess { 
+                    echo "Test Sucessful."
+                }
+                failure { 
+                    echo "Test Failed."
+                }
+            }
+        } // End of Test State
         stage('Deploy') { 
             steps {
                 echo "Deploying..."
             }
-        }
-    }
-}
+        } // End of Deploy Stage
+    } // End of Stages
+} // End of Pipeline
