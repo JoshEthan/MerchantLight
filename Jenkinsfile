@@ -1,5 +1,10 @@
 pipeline {
-    agent any 
+    agent {
+        node {
+            label 'master'
+            customWorkspace "D:/Projects"
+        }
+    }
     stages {
         stage('Build') { 
             steps {
