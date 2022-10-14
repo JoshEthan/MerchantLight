@@ -22,6 +22,7 @@ pipeline {
         stage('Build') { 
             steps {
                 echo "Building..."
+                bat "BuildWithoutCooking.bat \"${ue4Path}\" \"${env.WORKSPACE}\" \"${ueProjectFilename}\""//builds our project
             }
         }
         stage('Test') { 
