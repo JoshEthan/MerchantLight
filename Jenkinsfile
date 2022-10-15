@@ -2,7 +2,7 @@ pipeline {
     agent {
         node {
             label 'master'
-            customWorkspace "D:\Projects"
+            customWorkspace "D:\\Projects"
         }
     } // End of Agent
     
